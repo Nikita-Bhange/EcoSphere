@@ -14,7 +14,8 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,        # list of allowed origins
+    # allow_origins=origins, 
+      allow_origins=["http://localhost:5173"],       # list of allowed origins
     allow_credentials=True,
     allow_methods=["*"],          # allow all HTTP methods
     allow_headers=["*"],          # allow all headers
@@ -34,3 +35,6 @@ app.include_router(AuthRoute)
 # run backend:
 # activate virtual env : venv\Scripts\Activate
 #                         fastapi dev app.py
+
+
+

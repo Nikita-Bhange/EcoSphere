@@ -10,8 +10,8 @@ authCollection = MongoDB["user"]
 @router.post("/register")
 async def registerUser(data: userModel):
     # insert the user document
-   await authCollection.insert_one(data.model_dump())
-   return {
+  await authCollection.insert_one(data.dict())
+  return {
         "msg": "User registered successfully"
     }
 
