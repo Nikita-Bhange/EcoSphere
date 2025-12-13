@@ -6,6 +6,8 @@ import Navbar from '../Components/Navbar';
 
 function Classification() {
     const [preview, setPreview] = useState(null);
+    const [result, setResult] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleFile = (file) => {
         if (file && file.type.startsWith("image/")) {
@@ -30,6 +32,34 @@ function Classification() {
         e.preventDefault();
     };
 
+
+    // classfication code:
+    const handlePrediction = async () => {
+        if (!preview) return alert("Please upload an image first.");
+
+        setLoading(true);
+        setResult(null);
+
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const res = await api.post("/predict", formData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
+
+            setResult(res.data);
+        } catch (error) {
+            console.error("Prediction error:", error);
+            alert("Error while predicting");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
             <Navbar />
@@ -42,54 +72,69 @@ function Classification() {
                 <div className='flex mt-10 flex-col items-center'>
                     {/* Upload Box */}
                     <div className='bg-[#C3F3C0] border-dashed border-2 border-gray-400 rounded-2xl h-65 w-120 flex items-center justify-center flex-col'>
-                    <div
-                        className='bg-[#C3F3C0]  rounded-2xl h-60 w-100 flex items-center justify-center flex-col relative overflow-hidden'
-                        onDrop={handleDrop}
-                        onDragOver={handleDragOver}>
-                        {/* Camera Icon (hidden after upload) */}
-                        {!preview && (
-                            <button
-                                onClick={() => document.getElementById("fileInput").click()}
-                                className='absolute z-10'
-                            >
-                                <FaCamera size={50} color='green' className='cursor-pointer' />
-                            </button>
-                        )}
+                        <div
+                            className='bg-[#C3F3C0]  rounded-2xl h-60 w-100 flex items-center justify-center flex-col relative overflow-hidden'
+                            onDrop={handleDrop}
+                            onDragOver={handleDragOver}>
+                            {/* Camera Icon (hidden after upload) */}
+                            {!preview && (
+                                <button
+                                    onClick={() => document.getElementById("fileInput").click()}
+                                    className='absolute z-10'
+                                >
+                                    <FaCamera size={50} color='green' className='cursor-pointer' />
+                                </button>
+                            )}
 
-                        {/* Hidden File Input */}
-                        <input
-                            id="fileInput"
-                            type="file"
-                            accept="image/*"
-                            onChange={handleInputChange}
-                            className='hidden'
-                        />
+                            {/* Hidden File Input */}
+                            <input
+                                id="fileInput"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleInputChange}
+                                className='hidden'
+                            />
 
-                        {/* Upload Text (hidden after upload) */}
-                        {/* {!preview && (
+                            {/* Upload Text (hidden after upload) */}
+                            {/* {!preview && (
                             <div className='text-xl pt-20 text-gray-700 cursor-pointer'>
                                 Upload or Drag image Here
                             </div>
                         )} */}
 
-                        {/* Image Preview */}
-                        {preview && (
-                            <img
-                                src={preview}
-                                alt="preview"
-                                className='w-full h-full object-contain'
-                            />
-                        )}
+                            {/* Image Preview */}
+                            {preview && (
+                                <img
+                                    src={preview}
+                                    alt="preview"
+                                    className='w-full h-full object-contain'
+                                />
+                            )}
+                        </div>
+                        <div className='text-xl pb-2 text-gray-700 cursor-pointer'>
+                            Upload or Drag image Here
+                        </div>
                     </div>
-                     <div className='text-xl pb-2 text-gray-700 cursor-pointer'>
-                                Upload or Drag image Here
-                            </div>
-                    </div>
+                    {/* added predict button */}
+                    <button
+                        onClick={handlePrediction}
+                        className="mt-4 bg-green-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-green-700"
+                    >
+                        {loading ? "Predicting..." : "Predict Now"}
+                    </button>
 
                     {/* Prediction Prompt */}
-                    <div className='bg-[#C3F3C0] pt-10 rounded-2xl text-center h-70 w-200 mt-5'>
-                        <p className=' text-xl text-gray-600 ' >Upload Now to get the prediction</p>
-                    </div>
+                    {result && (
+                        <div className="bg-white shadow-lg p-5 rounded-xl mt-6 w-96 text-center border border-green-300">
+                            <h2 className="text-2xl font-bold text-green-700 mb-3">Prediction Result</h2>
+
+                            <p><b>Category:</b> {result.class}</p>
+                            <p><b>Material Type:</b> {result.type}</p>
+                            <p><b>Recyclable:</b> {String(result.recyclable)}</p>
+                            <p><b>Tips:</b> {result.tips}</p>
+                        </div>
+                    )}
+
                 </div>
             </section>
         </>

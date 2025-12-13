@@ -5,6 +5,8 @@ import os
 
 load_dotenv()
 
+MONGO_URI='mongodb+srv://nikitabhange:nikita@cluster0.bzijdqf.mongodb.net/?appName=Cluster0'
+
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("DB_NAME", "EcoSphere")
 

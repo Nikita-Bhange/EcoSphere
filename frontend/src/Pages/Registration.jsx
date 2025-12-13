@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import axois from "axios"; // use axios directly or your custom api instance
+
 import LoadingIndicator from "../Components/LoadingIndicator";
 import axios from "axios";
 
@@ -18,7 +18,7 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/auth/register", {
+      const response = await axios.post("http://localhost:8000/api/v1/auth/registration", {
         username,
         email,
         password,
@@ -28,7 +28,7 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
 
       // Example: navigate to login after successful signup
       if (method === "register") {
-        navigate("/loginform");
+        navigate("/");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -84,7 +84,7 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
 
         <p>
           Already a member?
-          <Link className="hover:text-blue-700 text-green-900" to="/loginform">
+          <Link className="hover:text-blue-700 text-green-900" to="/">
             {" "}
             Login Now
           </Link>

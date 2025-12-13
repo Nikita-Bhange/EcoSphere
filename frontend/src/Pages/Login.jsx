@@ -1,30 +1,38 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import axios from "axios";
 import LoadingIndicator from "../Components/LoadingIndicator";
 
-function Registration() {
-
+function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-     
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/auth/login",
+        {
+          email,
+          password,
+        }
+      );
 
-     
+      console.log("Login success:", response.data);
 
-      // Example: navigate to login after successful signup
-     
+      // Save token if backend returns one
+      if (response.data?.access_token) {
+        localStorage.setItem("token", response.data.access_token);
+      }
+
+      navigate("/home"); // or wherever you want
     } catch (error) {
-      console.error("Error:", error);
-      alert("Login  failed. Please try again.");
+      console.error("Login error:", error.response?.data || error.message);
+      alert(error.response?.data?.detail || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -37,8 +45,6 @@ function Registration() {
         className="flex bg-white flex-col items-center justify-center mx-auto my-12 p-5 h-120 w-100 gap-4 rounded-lg shadow-md max-w-md"
       >
         <h1 className="font-semibold text-2xl pb-3">LogIn</h1>
-
-    
 
         <input
           className="w-[90%] p-2 my-2 border border-gray-300 rounded"
@@ -61,7 +67,7 @@ function Registration() {
         {loading && <LoadingIndicator />}
 
         <button
-          className="w-[95%] p-2 my-5 bg-gradient-to-r from-green-700 via-[#B2EC5D] to-[#00AB66] font-bold rounded hover:text-white"
+          className="w-[95%] p-2 my-5 bg-gradient-to-r from-green-700 via-[#B2EC5D] to-[#00AB66] font-bold rounded hover:cursor-pointer hover:text-white"
           type="submit"
         >
           Log In
@@ -79,6 +85,6 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default Login;
 
 // bg-gradient-to-r from-[#E9FFDB] via-[#B2EC5D] to-[#00AB66]

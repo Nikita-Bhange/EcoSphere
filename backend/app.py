@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from src.routes.PublicRoute import route as PublicRoute
 from src.routes.AuthRoute import router as AuthRoute
-#cors error solution
 from fastapi.middleware.cors import CORSMiddleware
-
+# from src.routes.predict import router as predict_router
 app = FastAPI()
 
 origins = [
@@ -15,11 +14,12 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     # allow_origins=origins, 
-      allow_origins=["http://localhost:5173"],       # list of allowed origins
+    allow_origins=["http://localhost:5173"],       # list of allowed origins
     allow_credentials=True,
     allow_methods=["*"],          # allow all HTTP methods
     allow_headers=["*"],          # allow all headers
 )
+
 
 @app.get("/")
 def read_root():
@@ -28,7 +28,7 @@ def read_root():
 #add routes
 app.include_router(PublicRoute)
 app.include_router(AuthRoute)
-
+# app.include_router(predict_router, prefix="/api")
 
 
 
@@ -36,5 +36,12 @@ app.include_router(AuthRoute)
 # activate virtual env : venv\Scripts\Activate
 #                         fastapi dev app.py
 
+
+# tensorflow
+# pillow 
+# numpy
+# fastapi
+# uvicorn
+# python-multipart
 
 

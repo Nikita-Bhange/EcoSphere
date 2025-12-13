@@ -29,7 +29,7 @@ return (
             </NavLink>
           </li>
           <li>
-            <NavLink to="/loginform" className={navLinkStyle}>
+            <NavLink to="/" className={navLinkStyle}>
               Login
             </NavLink>
           </li>
