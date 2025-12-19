@@ -1,9 +1,13 @@
-# from fastapi import APIRouter, UploadFile, File
-# from src.ml.predictor import predict_image
+from fastapi import APIRouter, UploadFile, File
+from src.ml.predictor import predict_image
 
 # router = APIRouter()
+router = APIRouter(
+    prefix="/api/v1/auth",
+ 
+)
 
-# @router.post("/predict")
-# async def predict(file: UploadFile = File(...)):
-#     result = predict_image(file.file)
-#     return result
+@router.post("/predict")
+async def predict(file: UploadFile = File(...)):
+    result = predict_image(file.file)
+    return result

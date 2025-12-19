@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes.PublicRoute import route as PublicRoute
 from src.routes.AuthRoute import router as AuthRoute
+from src.routes.predict import router as predict_router
 
 app = FastAPI()
 
@@ -25,3 +26,4 @@ def read_root():
 # ✅ ROUTERS AFTER CORS
 app.include_router(PublicRoute)
 app.include_router(AuthRoute)
+app.include_router(predict_router)
