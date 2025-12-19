@@ -48,7 +48,7 @@ function Login() {
     <div className="flex items-center justify-center h-screen">
       <form
         onSubmit={handleSubmit}
-        className="flex bg-white flex-col items-center justify-center mx-auto my-12 p-5 gap-4 rounded-lg shadow-md max-w-md"
+        className="flex bg-white flex-col items-center justify-center mx-auto my-12 p-10 gap-6 rounded-xl shadow-xl w-full max-w-[400px]"
       >
         <h1 className="font-semibold text-2xl pb-3">Log In</h1>
 
@@ -60,7 +60,7 @@ function Login() {
         )}
 
         <input
-          className="w-[90%] p-2 border border-gray-300 rounded"
+          className="w-full h-12 px-5 text-lg border border-gray-300 rounded-lg"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -69,7 +69,7 @@ function Login() {
         />
 
         <input
-          className="w-[90%] p-2 border border-gray-300 rounded"
+          className="w-full h-12 px-5 text-lg border border-gray-300 rounded-lg"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -80,7 +80,7 @@ function Login() {
         {loading && <LoadingIndicator />}
 
         <button
-          className="w-[95%] p-2 my-3 bg-gradient-to-r from-green-700 via-[#B2EC5D] to-[#00AB66] font-bold rounded hover:text-white"
+          className="w-full h-11 text-lg my-4 bg-gradient-to-r from-green-700 via-[#B2EC5D] to-[#00AB66] font-bold rounded-lg hover:text-white"
           type="submit"
           disabled={loading}
         >

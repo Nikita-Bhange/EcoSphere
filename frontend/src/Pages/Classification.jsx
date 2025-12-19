@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { FaCamera } from "react-icons/fa";
 import Navbar from '../Components/Navbar';

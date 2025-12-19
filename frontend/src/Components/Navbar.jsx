@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FiClock, FiLogOut } from "react-icons/fi";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -16,10 +17,14 @@ function Navbar() {
     navigate("/");
   };
 
+  // history
+  const handleHistory = () => {
+    setOpen(false);
+    navigate("/history");
+  };
+
   // User initial
-  const initial = localStorage.getItem("userEmail")
-    ? localStorage.getItem("userEmail")[0].toUpperCase()
-    : "U";
+  const initial = localStorage.getItem("userEmail") ? localStorage.getItem("userEmail")[0].toUpperCase() : "U";
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -64,14 +69,23 @@ function Navbar() {
             </button>
 
             {open && (
-              <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg overflow-hidden z-50">
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
-                >
-                  Logout
-                </button>
-              </div>
+              <div className="absolute right-0 mt-3 w-44 bg-white rounded-lg shadow-xl overflow-hidden z-50 border">
+              <button
+                onClick={handleHistory}
+                className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-green-50 transition">
+                <FiClock className="text-green-600 text-lg" />
+                History
+              </button>
+
+              <div className="border-t" />
+
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
+                <FiLogOut className="text-red-600 text-lg" />
+                Logout
+              </button>
+            </div>
             )}
           </li>
         </ul>

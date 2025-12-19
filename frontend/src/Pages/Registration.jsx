@@ -71,7 +71,7 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
     <div className="flex items-center justify-center h-screen">
       <form
         onSubmit={handleSubmit}
-        className="flex bg-white flex-col items-center justify-center mx-auto my-12 p-5 h-120 w-100 gap-4 rounded-lg shadow-md max-w-md"
+        className="flex bg-white flex-col items-center justify-center mx-auto my-12 p-10 gap-6 rounded-xl shadow-xl w-full max-w-[400px]"
       >
         <h1 className="font-semibold text-2xl pb-3">{name}</h1>
 
@@ -97,8 +97,7 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
           placeholder="Enter email"
           required
         />
-        <p className="text-[15px] pl-3 text-red-400">(Password must contain at least one letter, one number, and one special character)</p>
-        <input
+                <input
           className="w-[90%] p-1 border border-gray-300 rounded"
           type="password"
           value={password}
@@ -116,6 +115,7 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
           placeholder="Confirm Password"
           required
         />
+        <p className="text-[15px] pl-3 text-red-400">(Password must contain at least one letter, one number, and one special character)</p>
 
         {loading && <LoadingIndicator />}
 

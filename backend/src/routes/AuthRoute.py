@@ -77,7 +77,6 @@ async def login(user: dict):
 # tensorflow
 # pillow
 # numpy
-# fastapi
+#fastapi
 # uvicorn
 # python-multipart
-
