@@ -80,4 +80,3 @@ async def login(user: dict):
 #fastapi
 # uvicorn
 # python-multipart
-

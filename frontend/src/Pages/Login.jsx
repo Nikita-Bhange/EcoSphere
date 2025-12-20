@@ -45,12 +45,25 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center min-h-screen">
+      
+
+ 
+      <div class="flex bg-white flex-col  mx-auto my-12 p-10 gap-6 rounded-xl shadow-xl w-full max-w-[400px] ">
+        <div class="text-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
+          <p class="text-gray-600">Sign in to your account</p>
+        </div>
+        
+
+
+
+
       <form
         onSubmit={handleSubmit}
-        className="flex bg-white flex-col items-center justify-center mx-auto my-12 p-5 gap-4 rounded-lg shadow-md max-w-md"
+        className="flex bg-white flex-col  "
       >
-        <h1 className="font-semibold text-2xl pb-3">Log In</h1>
+        
 
         {/* ❌ Error Message */}
         {error && (
@@ -58,18 +71,22 @@ function Login() {
             {error}
           </p>
         )}
-
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+              Email Address
+            </label>
         <input
-          className="w-[90%] p-2 border border-gray-300 rounded"
+          className="w-full h-12 px-5 text-lg border border-gray-300 rounded-lg"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter email"
           required
         />
-
+      <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+              Password
+            </label>
         <input
-          className="w-[90%] p-2 border border-gray-300 rounded"
+          className="w-full h-12 px-5 text-lg border border-gray-300 rounded-lg"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -80,7 +97,7 @@ function Login() {
         {loading && <LoadingIndicator />}
 
         <button
-          className="w-[95%] p-2 my-3 bg-gradient-to-r from-green-700 via-[#B2EC5D] to-[#00AB66] font-bold rounded hover:text-white"
+          className="w-full h-11 text-lg my-4 bg-gradient-to-r from-green-700 via-[#B2EC5D] to-[#00AB66] font-bold rounded-lg hover:text-white"
           type="submit"
           disabled={loading}
         >
@@ -98,6 +115,7 @@ function Login() {
           </Link>
         </p>
       </form>
+    </div>
     </div>
   );
 }

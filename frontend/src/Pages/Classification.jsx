@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { FaCamera } from "react-icons/fa";
 import Navbar from '../Components/Navbar';
@@ -166,9 +164,13 @@ function Classification() {
                                     <b className="text-xl text-green-700">Material Type:</b> {result.type}
                                 </p>
 
+                                
                                 <p className="text-xl">
                                     <b className="text-xl text-green-700">Recyclable:</b>{" "}
                                     {String(result.recyclable)}
+                                </p>
+                                <p className="text-xl">
+                                    <b className="text-xl text-green-700">ecoscore:</b> {result.type}
                                 </p>
 
                                 {/* Tips in list form */}
@@ -184,7 +186,7 @@ function Classification() {
                                 {["cardboard", "metal", "plastic"].includes(result.class) && (
                                     <div className="mt-6">
                                         <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-lg shadow-md">
-                                            Do you want to sell it to a nearby Kabadi shop?
+                                            Resell item 
                                         </button>
                                     </div>
                                 )}

@@ -3,6 +3,7 @@ CATEGORY_INFO = {
         "waste_type": "Cardboard",
         "type": "Biodegradable",
         "recyclable": True,
+        "ecoscore": "90%",
         "tips": [
             "Flatten cardboard boxes before disposal.",
             "Remove plastic tape and staples.",
@@ -16,6 +17,7 @@ CATEGORY_INFO = {
         "waste_type": "Glass",
         "type": "Non-biodegradable",
         "recyclable": True,
+        "ecoscore": "100%",
         "tips": [
             "Rinse glass bottles and jars before recycling.",
             "Remove metal lids or caps.",
@@ -29,6 +31,7 @@ CATEGORY_INFO = {
         "waste_type": "Metal",
         "type": "Non-biodegradable",
         "recyclable": True,
+        "ecoscore": "90%",
         "tips": [
             "Clean metal cans before recycling.",
             "Remove food residue completely.",
@@ -42,6 +45,7 @@ CATEGORY_INFO = {
         "waste_type": "Paper",
         "type": "Biodegradable",
         "recyclable": True,
+        "ecoscore": "80%",
         "tips": [
             "Keep paper dry and clean.",
             "Avoid recycling greasy or food-stained paper.",
@@ -55,6 +59,7 @@ CATEGORY_INFO = {
         "waste_type": "Plastic",
         "type": "Non-biodegradable",
         "recyclable": "Some types only",
+        "ecoscore": "50%",
         "tips": [
             "Check the recycling symbol and number.",
             "Plastics 1 and 2 are widely recyclable.",
@@ -68,6 +73,7 @@ CATEGORY_INFO = {
         "waste_type": "Trash",
         "type": "Biodegradable / Non-biodegradable",
         "recyclable": False,
+        "ecoscore": "10%",
         "tips": [
             "Dispose in the general waste bin.",
             "Do not mix with recyclable materials.",

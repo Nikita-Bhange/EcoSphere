@@ -68,38 +68,52 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center min-h-screen">
+      
+      <div class="flex bg-white flex-col  mx-auto my-10 p-10 gap-6 rounded-xl shadow-xl w-full max-w-[400px] ">
+        <div class="text-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
+          <p class="text-gray-600">Sign up to get started</p>
+        </div>
+
+
       <form
         onSubmit={handleSubmit}
-        className="flex bg-white flex-col items-center justify-center mx-auto my-12 p-5 h-120 w-100 gap-4 rounded-lg shadow-md max-w-md"
+        className="flex bg-white flex-col  "
       >
-        <h1 className="font-semibold text-2xl pb-3">{name}</h1>
-
         {/* ❌ Error message */}
         {error && (
           <p className="text-red-600 text-sm text-center">{error}</p>
         )}
 
+        {/* <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+          User Name
+        </label>
+
         <input
-          className="w-[90%] p-2 border border-gray-300 rounded"
+          className="w-[90%] p-2 mb-2 border border-gray-300 rounded"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
           required
-        />
-
+        /> */}
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+          Email Address
+        </label>
         <input
-          className="w-[90%] p-2 border border-gray-300 rounded"
+          className="w-[90%] p-2 mb-2  border border-gray-300 rounded"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter email"
           required
         />
-        <p className="text-[15px] pl-3 text-red-400">(Password must contain at least one letter, one number, and one special character)</p>
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+          Password
+        </label>
         <input
-          className="w-[90%] p-1 border border-gray-300 rounded"
+          className="w-[90%] p-1 mb-2 border border-gray-300 rounded"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -108,14 +122,18 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
         />
 
         {/* 🔁 Confirm Password */}
+        <label for="confirmpassword" class="block text-sm font-medium text-gray-700 mb-2">
+          Confirm Password
+        </label>
         <input
-          className="w-[90%] p-2 border border-gray-300 rounded"
+          className="w-[90%] p-2 mb-2 border border-gray-300 rounded"
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm Password"
           required
         />
+        <p className="text-[15px] pl-3 text-red-400">(Password must contain at least one letter, one number, and one special character)</p>
 
         {loading && <LoadingIndicator />}
 
@@ -135,6 +153,7 @@ function Registration({ route = "/api/user/register/", method = "register" }) {
           </Link>
         </p>
       </form>
+    </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import image6 from '../assets/image6.jpg'
 
 function Home(){
     const navigate = useNavigate()
+    
     return(
         <>
         <Navbar/>
@@ -17,7 +18,7 @@ function Home(){
        <section className=' bg-black h-screen flex justify-center '>
         <div className='carousel flex justify-center items-center w-full overflow-hidden'>
          
-           <img src={image6}/>
+           <img src={image6} className='w-full overflow-hidden'/>
        
         </div>
       </section>
