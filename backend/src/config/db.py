@@ -19,8 +19,7 @@ import os
 
 load_dotenv()
 
-# If .env exists, it will use it; otherwise fallback to localhost
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
+MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://nikitabhange:nikita@cluster0.bzijdqf.mongodb.net/?appName=Cluster0")
 DB_NAME = os.getenv("DB_NAME", "ecosphere")
 
 # Create MongoDB client

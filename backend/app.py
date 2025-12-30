@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.routes.PublicRoute import route as PublicRoute
 from src.routes.AuthRoute import router as AuthRoute
 from src.routes.predict import router as predict_router
-
+from src.routes.history import router as history_router
+from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 
 # ✅ ONLY frontend origins
@@ -22,8 +23,11 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-
 # ✅ ROUTERS AFTER CORS
 app.include_router(PublicRoute)
 app.include_router(AuthRoute)
 app.include_router(predict_router)
+app.include_router(history_router)
+
+
+app.mount("/static", StaticFiles(directory="static"), name="static")

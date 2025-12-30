@@ -25,11 +25,25 @@ def predict_image(image_file):
     predicted_class = index_to_class[predicted_index]
     info = CATEGORY_INFO.get(predicted_class, {})
 
+    # return {
+    #     "class": predicted_class,
+    #     "confidence": confidence,
+    #     "type": info.get("type"),
+    #     "recyclable": info.get("recyclable"),
+    #     "tips": info.get("tips")
+    # }
+
+
+
     return {
-        "class": predicted_class,
-        "confidence": confidence,
+        "waste_type": predicted_class.capitalize(),
         "type": info.get("type"),
         "recyclable": info.get("recyclable"),
-        "tips": info.get("tips")
+        "ecoscore": info.get("ecoscore"),
+        "tips": info.get("tips"),
+        "confidence": round(confidence * 100, 2)
     }
+
+
+
 

@@ -35,6 +35,8 @@ function Classification() {
     };
 
 
+
+
     // classfication code:
     const handlePrediction = async () => {
         if (!preview) return alert("Please upload an image first.");
@@ -63,6 +65,46 @@ function Classification() {
             setLoading(false);
         }
     };
+
+
+    
+const openNearbyJunkShops = (wasteClass) => {
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported by your browser");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      // Dynamic search based on waste type
+      const queryMap = {
+        cardboard: "paper recycling center",
+        plastic: "plastic scrap dealer",
+        metal: "metal scrap buyer",
+        glass: "glass recycling center",
+        paper: "paper recycling center",
+        trash: "waste disposal center"
+      };
+
+      const searchQuery = queryMap[wasteClass] || "junk shop";
+
+      const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(
+        searchQuery
+      )}/@${lat},${lng},14z`;
+
+      // ✅ THIS is the missing step
+      window.open(mapsUrl, "_blank");
+    },
+    (error) => {
+      alert("Location access denied. Please enable location services.");
+    }
+  );
+};
+
+
 
     return (
         <>
@@ -133,12 +175,6 @@ function Classification() {
                         
 
 
-
-
-
-
-
-
                         {/* added predict button */}
                         <button
                             onClick={handlePrediction}
@@ -149,7 +185,6 @@ function Classification() {
                     </div>
 
 
-                    {/* Prediction Prompt */}
                     <div className='bg-[#C3F3C0] ml-2 pt-4 border-dashed border-2 border-gray-400 rounded-2xl min-h-70 w-180 flex items-center justify-center flex-col'>
 
                         {result && (
@@ -157,7 +192,7 @@ function Classification() {
                                 <h2 className="text-2xl font-bold text-green-700 mb-3 text-center">Prediction Result</h2>
 
                                 <p className="text-xl">
-                                    <b className="text-xl text-green-700">Category:</b> {result.type}
+                                    <b className="text-xl text-green-700">Category:</b> {result.waste_type}
                                 </p>
 
                                 <p className="text-xl">
@@ -170,7 +205,7 @@ function Classification() {
                                     {String(result.recyclable)}
                                 </p>
                                 <p className="text-xl">
-                                    <b className="text-xl text-green-700">ecoscore:</b> {result.type}
+                                    <b className="text-xl text-green-700">ecoscore:</b> {result.ecoscore}
                                 </p>
 
                                 {/* Tips in list form */}
@@ -183,10 +218,12 @@ function Classification() {
                                     </ul>
                                 </div>
 
-                                {["cardboard", "metal", "plastic"].includes(result.class) && (
+                                {["Cardboard", "Metal", "Plastic"].includes(result.waste_type) && (
                                     <div className="mt-6">
-                                        <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-lg shadow-md">
-                                            Resell item 
+                                        <button 
+                                        onClick={openNearbyJunkShops}
+                                        className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-lg shadow-md">
+                                            visit junk shop
                                         </button>
                                     </div>
                                 )}

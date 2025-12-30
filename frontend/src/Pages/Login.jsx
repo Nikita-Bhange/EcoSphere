@@ -49,10 +49,10 @@ function Login() {
       
 
  
-      <div class="flex bg-white flex-col  mx-auto my-12 p-10 gap-6 rounded-xl shadow-xl w-full max-w-[400px] ">
-        <div class="text-center mb-8">
-          <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
-          <p class="text-gray-600">Sign in to your account</p>
+      <div className="flex bg-white flex-col  mx-auto my-12 p-10 gap-6 rounded-xl shadow-xl w-full max-w-[400px] ">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
+          <p className="text-gray-600">Sign in to your account</p>
         </div>
         
 
@@ -71,7 +71,7 @@ function Login() {
             {error}
           </p>
         )}
-        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
               Email Address
             </label>
         <input
@@ -82,7 +82,7 @@ function Login() {
           placeholder="Enter email"
           required
         />
-      <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+      <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
               Password
             </label>
         <input

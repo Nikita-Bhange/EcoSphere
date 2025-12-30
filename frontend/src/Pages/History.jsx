@@ -1,83 +1,44 @@
-import React from "react";
-import Navbar from "../Components/Navbar";
-import metalcans from "../assets/metalcans.jpg"
-import plastic from "../assets/plastic.jpg"
-import cardboard from "../assets/cardboards.jpg"
-function History() {
-  const userEmail = localStorage.getItem("userEmail") || "user@example.com";
-  const initial = userEmail[0].toUpperCase();
 
-  // Dummy history data (replace with API/ML response)
-  const historyData = [
-    {
-      id: 1,
-      imageUrl: plastic,
-      imageName: "Plastic-Bottle",
-      category: "Recyclable",
-      tips: "Rinse and place in plastic recycling bin."
-    },
-    {
-      id: 2,
-      imageUrl: cardboard,
-      imageName: "cardboard",
-      category: "Bio-degradable",
-      tips: "Dispose in compost or organic waste bin."
-    },
-    {
-      id: 3,
-      imageUrl: metalcans,
-      imageName: "metalcans",
-      category: "Recyclable",
-      tips: "Resell to store, can reuse it"
-    }
-  ];
+
+import React ,{ useEffect, useState } from "react";
+import axios from "axios";
+import Navbar from "../Components/Navbar";
+import HistoryCard from "../Components/HistoryCard";
+export default function History() {
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/v1/auth/history")
+      .then(res => setHistory(res.data))
+      .catch(err => console.error(err));
+    
+  }, []);
+
+//     .then((res) => {
+//       console.log("History API response:", res.data); // 👈 LOG HERE
+//       setHistory(res.data);
+//     })
+
+
 
   return (
     <>
-     <Navbar/>
-    <div className="max-h-screen  px-16 py-8">
-     
-    
-      {/* History List */}
-      <div className="bg-white rounded-lg shadow p-4 max-h-[70vh] overflow-y-auto">
-        <h2 className="text-2xl font-bold mb-4 text-green-700">
-          Classification History
-        </h2>
-
-        {historyData.map((item) => (
-          <div
-            key={item.id}
-            className="flex items-center gap-4 border-b py-2 last:border-b-0"
-          >
-            {/* Image */}
-            <img
-              src={item.imageUrl}
-              alt={item.imageName}
-              className="w-40 h-30 rounded-md object-cover"
-            />
-
-            {/* Image Name */}
-            <div className="w-1/4 font-medium text-xl text-gray-800">
-              {item.imageName}
-            </div>
-
-            {/* Category */}
-            <div className="w-1/4">
-              <span className="px-3 py-1 rounded-full text-lg font-semibold bg-green-100 text-green-700">
-                {item.category}
-              </span>
-            </div>
-
-            {/* Recycling Tips */}
-            <div className="flex-1 text-gray-600 ">
-              {item.tips}
-            </div>
-          </div>
-        ))}
-      </div>
+    <Navbar/>
+    <p className="text-3xl font-bold text-black px-12 py-5  ">HISTORY</p>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+      {history.map(item => (
+        <HistoryCard
+          key={item._id}
+          title={item.waste_type}
+          recyclable={item.recyclable}
+          certainty={item.confidence}
+          tip={[item.tips[0],item.tips[1]]}
+         imageUrl={`http://localhost:8000/static/images/${item.image_url}`}
+          labelLeft={item.type}
+          labelRight={item.ecoscore}
+        />
+      ))}
     </div>
     </>
   );
 }
-
-export default History;
