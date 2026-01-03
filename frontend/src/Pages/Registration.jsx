@@ -10,6 +10,7 @@ function Registration({ route = "/api/v1/auth/registration", method = "register"
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
   const name = method === "login" ? "Login" : "SignUp";
@@ -46,7 +47,7 @@ function Registration({ route = "/api/v1/auth/registration", method = "register"
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/auth/registration",
+          `${API_URL}/api/v1/auth/registration`,
         {
           // username,
           email,
@@ -159,105 +160,3 @@ function Registration({ route = "/api/v1/auth/registration", method = "register"
 }
 
 export default Registration;
-// import React, { useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import axios from "axios";
-// import LoadingIndicator from "../Components/LoadingIndicator";
-
-// function Registration({ route = "/api/v1/auth/registration", method = "register" }) {
-//   const [username, setUsername] = useState(""); // optional
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [confirmPassword, setConfirmPassword] = useState("");
-//   const [error, setError] = useState("");
-//   const [loading, setLoading] = useState(false);
-
-//   const navigate = useNavigate();
-//   const name = method === "login" ? "Login" : "Sign Up";
-
-//   // 🔐 Password rule: 1 letter, 1 number, 1 special char, min 6 chars
-//   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$/;
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setError("");
-
-//     // Email validation
-//     if (!email.includes("@")) {
-//       setError("Please enter a valid email address");
-//       return;
-//     }
-
-//     // Password validation
-//     if (!passwordRegex.test(password)) {
-//       setError(
-//         "Password must contain at least one letter, one number, and one special character"
-//       );
-//       return;
-//     }
-
-//     // Confirm password
-//     if (password !== confirmPassword) {
-//       setError("Passwords do not match");
-//       return;
-//     }
-
-//     setLoading(true);
-
-//     try {
-//       const response = await axios.post(
-//         "http://localhost:8000/api/v1/auth/registration",
-//         {
-//           username,
-//           email,
-//           password,
-//         }
-//       );
-
-//       console.log("Response:", response.data);
-
-//       if (method === "register") {
-//         navigate("/");
-//       }
-//     } catch (err) {
-//       console.error("Registration error:", err.response?.data || err);
-//       setError(err.response?.data?.message || "Registration failed");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="flex items-center justify-center min-h-screen ">
-//       <div className="flex bg-white flex-col mx-auto my-10 p-10 gap-6 rounded-xl shadow-xl w-full max-w-[400px]">
-        
-//         <div className="text-center mb-6">
-//           <h1 className="text-3xl font-bold text-gray-800 mb-2">
-//             Create Account
-//           </h1>
-//           <p className="text-gray-600">Sign up to get started</p>
-//         </div>
-
-//         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-
-//           {/* Error message */}
-//           {error && (
-//             <p className="text-red-600 text-sm text-center">{error}</p>
-//           )}
-
-//           {/* Username (optional) */}
-//           <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-//             Username
-//           </label>
-//           <input
-//             id="username"
-//             className="w-full p-2 border border-gray-300 rounded"
-//             type="text"
-//             value={username}
-//             onChange={(e) => setUsername(e.target.value)}
-//             placeholder="Enter username"
-//           />
-
-//           {/* Email */}
-//           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-//             Email Address

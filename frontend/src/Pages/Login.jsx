@@ -1,5 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
+
+
+// const API_URL = process.env.REACT_APP_API_URL;
 import axios from "axios";
 import LoadingIndicator from "../Components/LoadingIndicator";
 
@@ -17,7 +21,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/auth/login",
+        `${API_URL}/api/v1/auth/login`,
         {
           email,
           password,
@@ -65,7 +69,7 @@ function Login() {
       >
         
 
-        {/* ❌ Error Message */}
+       
         {error && (
           <p className="text-red-600 text-sm text-center">
             {error}

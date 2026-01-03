@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import HistoryCard from "./HistoryCard"
 import Badges from "./Badges.jsx"
-
+import Classification from "../Pages/Classification.jsx";
 import { FiClock, FiLogOut } from "react-icons/fi";
 import { NavLink, useNavigate } from "react-router-dom";
 import ImpactPanel from "./ImpactPanel.jsx"
@@ -12,13 +12,17 @@ import ImpactPanel from "./ImpactPanel.jsx"
 export default function Profile({ userId, onClose }) {
     // const [user, setUser] = useState({ name: "Loading...", photoUrl: "" });
     const [user, setUser] = useState({ name: "nikitabhange05@gmail.com", photoUrl: "" });
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
-       const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
-    navigate("/");
-  };
+
+    const [ecoScore, setEcoScore] = useState(0);
+    const [itemsThisMonth, setItemsThisMonth] = useState(0);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        navigate("/");
+    };
 
 
     useEffect(() => {
@@ -59,17 +63,19 @@ export default function Profile({ userId, onClose }) {
                     </div>
                 </div>
 
-                {/* <section className="mt-4">
-                    <h2 className="headline mb-2">History</h2>
-                    <HistoryCard title="Corrugated Cardboard" recyclable certainty={66} tip="Break down boxes, remove any plastic or tape, and bundle together." imageUrl="https://images.unsplash.com/photo-1584352721269-6b7a1a5c1f42?q=80&w=800&auto=format&fit=crop" labelLeft="6 Redindyze" labelRight="Reanding »" />
-                </section> */}
                 <NavLink to="/history">
 
                     <button className="bg-red-700 rounded-2xl mt-5 font-bold text-white  p-2">View History</button>
                 </NavLink>
-                <ImpactPanel bedScore={720} itemsThisMonth={33} />
+                {/* <ImpactPanel bedScore={720} itemsThisMonth={33} /> */}
+                
 
-                {/* <Badges badges={[{ id: 1, name: "Starter", icon: "⭐" }, { id: 2, name: "Cardboard Champ", icon: "📦" }, { id: 3, name: "Eco Streak", icon: "🌿" },]} /> */}
+                <ImpactPanel
+                    ecoscore={ecoScore}
+                    items={itemsThisMonth}
+                />
+
+
                 <button
                     onClick={handleLogout}
                     className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">

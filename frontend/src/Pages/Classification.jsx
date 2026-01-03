@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import { FaCamera } from "react-icons/fa";
 import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
 import axios from 'axios'
+import { useImpact } from "../context/ImpactContext";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 function Classification() {
+
     const [preview, setPreview] = useState(null);
     const [showUploadAnother, setShowUploadAnother] = useState(false);
+    const [showStar, setShowStar] = useState(false);
 
+const [hasRewarded, setHasRewarded] = useState(false);
 
-    
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
+    const { setEcoScore, setItemsThisMonth } = useImpact();
+
 
     const handleFile = (file) => {
         if (file && file.type.startsWith("image/")) {
@@ -51,12 +61,33 @@ function Classification() {
         formData.append("file", file);
 
         try {
-            const res = await axios.post("http://localhost:8000/api/v1/auth/predict", formData, {
+            const res = await axios.post(`${API_URL}/api/v1/auth/predict`, formData, {
                 headers: { "Content-Type": "multipart/form-data" }
             });
 
+      
             setResult(res.data);
             setShowUploadAnother(true);
+
+// ⭐ CALCULATE POINTS
+const points = res.data.recyclable ? 10 : 5;
+
+
+if (!hasRewarded) {
+  setHasRewarded(true);
+  setShowStar(true);
+
+  // update global impact score
+  setEcoScore(prev => prev + 10);
+  setItemsThisMonth(prev => prev + 1);
+
+  // hide stars after 3 seconds
+  setTimeout(() => {
+    setShowStar(false);
+  }, 3000);
+}
+
+            
 
         } catch (error) {
             console.error("Prediction error:", error);
@@ -109,6 +140,12 @@ const openNearbyJunkShops = (wasteClass) => {
     return (
         <>
             <Navbar />
+            {showStar && (
+  <div className="fixed inset-0 flex items-center justify-center z-50 animate-ping">
+    <span className="text-[80px] animate-bounse text-amber-400 ">⭐</span>
+  </div>
+)}
+
             <section className='flex flex-col items-center justify-center py-10 leading-1.5 gap-10'>
                 <p className='text-3xl text-gray-600 font-semibold leading-1.5'>Dispose Smartly</p>
                 <p className='text-3xl  text-gray-600 shadow-2xl  text-center max-w-4xl'>
@@ -165,6 +202,7 @@ const openNearbyJunkShops = (wasteClass) => {
                                 onClick={() => {
                                     setPreview(null);
                                     setHasPredicted(false);
+                                    setShowStar(false)
                                     document.getElementById("fileInput").value = "";
                                 }}
                                 className="mt-3 bg-green-600 text-white px-6 py-3 mb-3 rounded-xl text-lg hover:bg-green-700 transition"
@@ -234,6 +272,7 @@ const openNearbyJunkShops = (wasteClass) => {
                     </div>
                 </div>
             </section>
+            <Footer/>
         </>
     );
 }

@@ -4,11 +4,13 @@ import React ,{ useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
 import HistoryCard from "../Components/HistoryCard";
+import Footer from "../Components/Footer";
+const API_URL = import.meta.env.VITE_API_URL;
 export default function History() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/v1/auth/history")
+    axios.get( `${API_URL}/api/v1/auth/history`)
       .then(res => setHistory(res.data))
       .catch(err => console.error(err));
     
@@ -33,12 +35,13 @@ export default function History() {
           recyclable={item.recyclable}
           certainty={item.confidence}
           tip={[item.tips[0],item.tips[1]]}
-         imageUrl={`http://localhost:8000/static/images/${item.image_url}`}
+         imageUrl={`${API_URL}/static/images/${item.image_url}`}
           labelLeft={item.type}
           labelRight={item.ecoscore}
         />
       ))}
     </div>
+    <Footer/>
     </>
   );
 }

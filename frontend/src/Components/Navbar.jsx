@@ -18,7 +18,7 @@ const userId = "6712abce1234567890fedcba";
 
 
   const navLinkStyle =
-    "text-lg text-white font-medium transition duration-300 ease-in-out hover:text-amber-100 hover:font-bold hover:underline";
+    "text-lg text-white  font-bold transition duration-300 ease-in-out hover:text-amber-100 hover:font-bold hover:underline";
 
   // Logout
 
@@ -67,12 +67,7 @@ const userId = "6712abce1234567890fedcba";
 
           {/* Profile Dropdown */}
           <li className="relative" ref={dropdownRef}>
-            {/* <button
-              onClick={() => setOpen(!open)}
-              className="w-10 h-10 rounded-full bg-green-700 text-white flex items-center justify-center font-semibold hover:bg-green-600"
-            >
-              {initial}
-            </button> */}
+      
  <button onClick={() => setShowProfile(true)}
           className="relative rounded-full border border-gray-300 p-1 hover:bg-gray-100"
         >
